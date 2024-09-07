@@ -1,15 +1,9 @@
 ﻿using Microsoft.CodeAnalysis;
+using Patternify.Abstraction.Generators;
 
 namespace Patternify.Singleton;
 
 [Generator]
-internal sealed class SingletonGenerator : ISourceGenerator
+internal class SingletonGenerator : MainGenerator<SingletonSyntaxReceiver>
 {
-    public void Execute(GeneratorExecutionContext context)
-    {
-    }
-
-    public void Initialize(GeneratorInitializationContext context)
-    {
-    }
 }
