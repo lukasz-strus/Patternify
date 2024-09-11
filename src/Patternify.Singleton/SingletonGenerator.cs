@@ -17,7 +17,7 @@ internal class SingletonGenerator : MainGenerator<SingletonSyntaxReceiver>
         Builder.SetUsings(classDeclaration);
         Builder.SetNamespace(classDeclaration);
         Builder.SetAccessModifier(classDeclaration);
-        Builder.SetClassSignature(classDeclaration);
+        Builder.SetClassName(classDeclaration);
 
         var source = Builder.Build();
 

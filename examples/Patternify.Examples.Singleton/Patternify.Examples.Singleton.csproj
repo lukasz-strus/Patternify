@@ -8,7 +8,7 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\src\Patternify.Singleton\Patternify.Singleton.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="true"/>
+		<ProjectReference Include="..\..\src\Patternify.Singleton\Patternify.Singleton.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="true" />
 		<ProjectReference Include="..\..\src\Patternify.Abstraction\Patternify.Abstraction.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="true" />
 	</ItemGroup>
 

@@ -31,7 +31,7 @@ internal abstract class MainGenerator<T> : ISourceGenerator
     {
         context.RegisterForSyntaxNotifications(() => new T());
 #if DEBUG
-        //if (!Debugger.IsAttached) Debugger.Launch();
+       // if (!Debugger.IsAttached) Debugger.Launch();
 #endif
     }
 }
