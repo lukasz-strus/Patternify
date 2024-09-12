@@ -43,7 +43,8 @@ internal sealed class SingletonBuilder
 
     internal void SetNamespace(ClassDeclarationSyntax @class)
     {
-        var @namespace = @class.FirstAncestorOrSelf<NamespaceDeclarationSyntax>()?.Name.ToString();
+        var @namespace = @class.FirstAncestorOrSelf<NamespaceDeclarationSyntax>()?.Name.ToString()
+                         ?? @class.FirstAncestorOrSelf<FileScopedNamespaceDeclarationSyntax>()?.Name.ToString();
 
         _namespace = @namespace is null 
             ? string.Empty
@@ -63,7 +64,7 @@ internal sealed class SingletonBuilder
         
         {{_namespace}}
         
-        {{_accessModifier}} sealed partial class {{_className}}
+        {{_accessModifier}} partial class {{_className}}
         {
             private static {{_className}} _instance = null;
             private static object obj = new object();
