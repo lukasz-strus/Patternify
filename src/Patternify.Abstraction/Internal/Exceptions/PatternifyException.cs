@@ -3,9 +3,4 @@
 namespace Patternify.Abstraction.Internal.Exceptions;
 
 [ExcludeFromCodeCoverage]
-public abstract class PatternifyException : Exception
-{
-    protected PatternifyException(string message) : base(message)
-    {
-    }
-}
+public abstract class PatternifyException(string message) : Exception(message);

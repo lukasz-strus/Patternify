@@ -6,7 +6,7 @@ namespace Patternify.Abstraction.Internal.Extensions;
 
 internal static class SyntaxNodeExtensions
 {
-    internal static T GetParent<T>(this SyntaxNode node)
+    internal static T GetFirstParent<T>(this SyntaxNode node)
         where T : SyntaxNode
     {
         var parent = node.Parent;

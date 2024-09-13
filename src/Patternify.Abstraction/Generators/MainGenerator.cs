@@ -14,7 +14,7 @@ internal abstract class MainGenerator<T> : ISourceGenerator
     public void Execute(GeneratorExecutionContext context)
     {
         var receiver = (T?)context.SyntaxReceiver;
-        if (receiver?.Attributes is null) return;
+        if (receiver is null) return;
 
         foreach (var attribute in receiver.Attributes)
         {

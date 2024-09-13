@@ -12,7 +12,7 @@ internal class SingletonGenerator : MainGenerator<SingletonSyntaxReceiver>
 
     protected override string GenerateCode(AttributeSyntax attribute)
     {
-        var classDeclaration = attribute.GetParent<ClassDeclarationSyntax>();
+        var classDeclaration = attribute.GetFirstParent<ClassDeclarationSyntax>();
         
         Builder.SetUsings(classDeclaration);
         Builder.SetNamespace(classDeclaration);
@@ -27,5 +27,5 @@ internal class SingletonGenerator : MainGenerator<SingletonSyntaxReceiver>
     }
 
     protected override string GetNestHintName(AttributeSyntax attribute)
-        => attribute.GetParent<ClassDeclarationSyntax>().Identifier.Text + ".g.cs";
+        => attribute.GetFirstParent<ClassDeclarationSyntax>().Identifier.Text + ".g.cs";
 }

@@ -9,8 +9,8 @@ internal sealed class SingletonBuilder
     private string _accessModifier = string.Empty;
     private string _className = string.Empty;
 
-    private readonly List<string> _standardUsings = new()
-    {
+    private readonly List<string> _standardUsings =
+    [
         "using System;",
         "using System.Collections.Generic;",
         "using System.IO;",
@@ -20,7 +20,7 @@ internal sealed class SingletonBuilder
         "using System.Threading.Tasks;",
         "using System.Collections.Generic;",
         "using System.Text.Json;"
-    };
+    ];
 
     internal void SetUsings(ClassDeclarationSyntax @class)
     {
@@ -28,7 +28,7 @@ internal sealed class SingletonBuilder
             .FirstAncestorOrSelf<CompilationUnitSyntax>()?
             .DescendantNodesAndSelf()
             .OfType<UsingDirectiveSyntax>()
-            .Select(x => $"using {x.Name.ToString()};")
+            .Select(x => $"using {x.Name?.ToString()};")
             .Distinct()
             .ToList()!;
 
@@ -38,7 +38,7 @@ internal sealed class SingletonBuilder
             usingsMap.Add(systemUsing);
         }
 
-        _usings = string.Join(Environment.NewLine, usingsMap);
+        _usings = string.Join("\n", usingsMap);
     }
 
     internal void SetNamespace(ClassDeclarationSyntax @class)
