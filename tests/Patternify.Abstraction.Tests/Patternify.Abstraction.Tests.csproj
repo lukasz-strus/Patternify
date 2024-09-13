@@ -31,6 +31,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Patternify.Abstraction\Patternify.Abstraction.csproj" />
+    <ProjectReference Include="..\Patternify.Tests.Helpers\Patternify.Tests.Helpers.csproj" />
   </ItemGroup>
 
   <ItemGroup>

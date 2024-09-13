@@ -1,11 +1,9 @@
 ﻿using System.Diagnostics;
 using Microsoft.CodeAnalysis;
-using System.Runtime.CompilerServices;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 using System.Text;
 
-[assembly: InternalsVisibleTo("Patternify.Singleton")]
 namespace Patternify.Abstraction.Generators;
 
 internal abstract class MainGenerator<T> : ISourceGenerator

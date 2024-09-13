@@ -1,9 +1,9 @@
-﻿using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 
-namespace Patternify.Abstraction.Tests.Helpers;
+namespace Patternify.Tests.Helpers;
 
-internal static class CompilationCreator
+public static class CompilationCreator
 {
     public static Compilation CreateCompilation(string sourceCode)
     {

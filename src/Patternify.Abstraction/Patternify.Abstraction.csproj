@@ -21,7 +21,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<InternalsVisibleTo Include="Patternify.Abstraction.Tests"/>
+		<InternalsVisibleTo Include="Patternify.Abstraction.Tests" />
+		<InternalsVisibleTo Include="Patternify.Singleton" />
+		<InternalsVisibleTo Include="Patternify.Singleton.Tests" />
 	</ItemGroup>
 
 </Project>
