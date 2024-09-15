@@ -1,6 +1,6 @@
 ﻿using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis;
-using Patternify.Abstraction.Analyzers;
+using Patternify.Abstraction.Analyzers.DiagnosticAnalyzers;
 
 namespace Patternify.Singleton.Analyzers;
 
