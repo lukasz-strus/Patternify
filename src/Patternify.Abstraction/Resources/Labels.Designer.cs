@@ -61,6 +61,15 @@ namespace Patternify.Abstraction.Resources {
         }
         
         /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Add partial keyword.
+        /// </summary>
+        internal static string P0001_CODE_FIX_TITLE {
+            get {
+                return ResourceManager.GetString("P0001_CODE_FIX_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         /// Wyszukuje zlokalizowany ciąg podobny do ciągu A class marked with this attribute should be partial. Add &quot;partial&quot; keyword..
         /// </summary>
         internal static string PF0001_MESSAGE {

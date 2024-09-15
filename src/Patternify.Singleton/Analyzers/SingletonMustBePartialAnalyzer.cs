@@ -5,7 +5,7 @@ using Patternify.Abstraction.Analyzers;
 namespace Patternify.Singleton.Analyzers;
 
 [DiagnosticAnalyzer(LanguageNames.CSharp)]
-internal sealed class SingletonMustBePartial : ClassMustBePartial
+internal sealed class SingletonMustBePartialAnalyzer : ClassMustBePartialAnalyzer
 {
     protected override string AttributeName => nameof(SingletonAttribute);
 }

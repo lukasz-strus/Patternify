@@ -123,4 +123,7 @@
   <data name="PF0001_MESSAGE" xml:space="preserve">
     <value>A class marked with this attribute should be partial. Add "partial" keyword.</value>
   </data>
+  <data name="P0001_CODE_FIX_TITLE" xml:space="preserve">
+    <value>Add partial keyword</value>
+  </data>
 </root>

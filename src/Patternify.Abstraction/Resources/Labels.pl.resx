@@ -123,4 +123,7 @@
   <data name="PF0001_MESSAGE" xml:space="preserve">
     <value>Klasa oznaczona tym atrybutem powinna być częściowa. Dodaj słowo kluczowe "partial".</value>
   </data>
+  <data name="P0001_CODE_FIX_TITLE" xml:space="preserve">
+    <value>Dodaj słówko kluczowe "partial"</value>
+  </data>
 </root>
