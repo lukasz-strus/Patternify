@@ -1,8 +1,9 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Patternify.Singleton.Generators;
 using Patternify.Tests.Helpers;
 
-namespace Patternify.Singleton.Tests;
+namespace Patternify.Singleton.Tests.Generators;
 
 public sealed class SingletonGeneratorTests
 {

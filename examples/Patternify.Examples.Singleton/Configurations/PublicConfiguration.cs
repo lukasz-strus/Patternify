@@ -2,7 +2,7 @@
 
 namespace Patternify.Examples.Singleton.Configurations;
 
-[Singleton]
+[Singleton] 
 public partial class PublicConfiguration
 {
     public string Property { get; set; } = string.Empty;

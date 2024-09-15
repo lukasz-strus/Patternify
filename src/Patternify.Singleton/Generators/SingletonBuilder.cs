@@ -1,6 +1,6 @@
 ﻿using Patternify.Abstraction.Generators;
 
-namespace Patternify.Singleton;
+namespace Patternify.Singleton.Generators;
 
 internal sealed class SingletonBuilder : MainBuilder
 {

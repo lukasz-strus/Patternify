@@ -1,9 +1,10 @@
 ﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Patternify.Abstraction.Generators;
 using Patternify.Abstraction.Internal.Extensions;
 
-namespace Patternify.Singleton;
+namespace Patternify.Singleton.Generators;
 
 [Generator]
 internal class SingletonGenerator : MainGenerator<SingletonSyntaxReceiver>
@@ -13,7 +14,8 @@ internal class SingletonGenerator : MainGenerator<SingletonSyntaxReceiver>
     protected override string GenerateCode(AttributeSyntax attribute)
     {
         var classDeclaration = attribute.GetFirstParent<ClassDeclarationSyntax>();
-        
+        if (!classDeclaration.Modifiers.Any(SyntaxKind.PartialKeyword)) return string.Empty;
+
         Builder.SetUsings(classDeclaration);
         Builder.SetNamespace(classDeclaration);
         Builder.SetAccessModifier(classDeclaration);

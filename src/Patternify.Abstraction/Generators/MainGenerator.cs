@@ -17,6 +17,8 @@ internal abstract class MainGenerator<T> : ISourceGenerator
         foreach (var attribute in receiver.Attributes)
         {
             var source = GenerateCode(attribute);
+            if (string.IsNullOrWhiteSpace(source)) continue;
+
             var hintName = GetNestHintName(attribute);
             context.AddSource(hintName, SourceText.From(source.Normalize(), Encoding.UTF8));
         }
