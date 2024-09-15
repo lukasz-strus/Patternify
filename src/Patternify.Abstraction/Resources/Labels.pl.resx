@@ -121,9 +121,9 @@
     <value>Klasa powinna być częściowa</value>
   </data>
   <data name="PF0001_MESSAGE" xml:space="preserve">
-    <value>Klasa oznaczona tym atrybutem powinna być częściowa. Dodaj słowo kluczowe "partial".</value>
+    <value>Klasa oznaczona tym atrybutem powinna być częściowa. Dodaj do deklaracji klasy częściowy modyfikator.</value>
   </data>
   <data name="P0001_CODE_FIX_TITLE" xml:space="preserve">
-    <value>Dodaj słówko kluczowe "partial"</value>
+    <value>Dodaj do deklaracji klasy częściowy modyfikator</value>
   </data>
 </root>

@@ -1,37 +1,31 @@
 ﻿using System.Collections.Immutable;
-using System.Composition;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Patternify.Abstraction.Analyzers;
 using Patternify.Abstraction.Resources;
 
-namespace Patternify.Singleton.CodeFixProviders;
+namespace Patternify.Abstraction.Analyzers.ClassMustBePartial;
 
 [ExportCodeFixProvider(LanguageNames.CSharp)]
-internal sealed class SingletonMustBePartialCodeFixProvider : CodeFixProvider
+internal sealed class ClassMustBePartialCodeFix : CodeFixProvider
 {
-    public override ImmutableArray<string> FixableDiagnosticIds =>
-        [PatternifyDescriptors.PF0001_ClassMustBePartial.Id];
-
-    public override FixAllProvider GetFixAllProvider() =>
-        WellKnownFixAllProviders.BatchFixer;
+    private readonly string _diagnosticId = PatternifyDescriptors.PF0001_ClassMustBePartial.Id;
+    public override ImmutableArray<string> FixableDiagnosticIds => [_diagnosticId];
+    public override FixAllProvider GetFixAllProvider() => WellKnownFixAllProviders.BatchFixer;
 
     public override Task RegisterCodeFixesAsync(CodeFixContext context)
     {
         foreach (var diagnostic in context.Diagnostics)
         {
-            if (diagnostic.Id != PatternifyDescriptors.PF0001_ClassMustBePartial.Id)
-                continue;
-
-            var title = Labels.PF0001_TITLE;
-
+            if (diagnostic.Id != _diagnosticId) continue;
+            
             var action = CodeAction.Create(
-                title,
-                token => AddPartialKeywordAsync(context, diagnostic, token),
-                title);
+                Labels.P0001_CODE_FIX_TITLE,
+                async token => await AddPartialKeywordAsync(context, diagnostic, token),
+                _diagnosticId);
+
             context.RegisterCodeFix(action, diagnostic);
         }
 
@@ -40,33 +34,28 @@ internal sealed class SingletonMustBePartialCodeFixProvider : CodeFixProvider
 
     private static async Task<Document> AddPartialKeywordAsync(
         CodeFixContext context,
-        Diagnostic makePartial,
+        Diagnostic diagnostic,
         CancellationToken cancellationToken)
     {
         var root = await context.Document.GetSyntaxRootAsync(cancellationToken);
-
         if (root is null) return context.Document;
 
-        var classDeclaration = FindClassDeclaration(makePartial, root);
-
+        var classDeclaration = FindClassDeclaration(diagnostic, root);
         var partial = SyntaxFactory.Token(SyntaxKind.PartialKeyword);
+
         var newDeclaration = classDeclaration.AddModifiers(partial);
 
         var newRoot = root.ReplaceNode(classDeclaration, newDeclaration);
-        var newDoc = context.Document.WithSyntaxRoot(newRoot);
+        var newDocument = context.Document.WithSyntaxRoot(newRoot);
 
-        return newDoc;
+        return newDocument;
     }
 
     private static ClassDeclarationSyntax FindClassDeclaration(
-        Diagnostic makePartial,
-        SyntaxNode root)
-    {
-        var diagnosticSpan = makePartial.Location.SourceSpan;
-
-        return root.FindToken(diagnosticSpan.Start)
+        Diagnostic diagnostic,
+        SyntaxNode root) =>
+        root.FindToken(diagnostic.Location.SourceSpan.Start)
             .Parent?.AncestorsAndSelf()
             .OfType<ClassDeclarationSyntax>()
             .First()!;
-    }
 }

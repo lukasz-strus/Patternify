@@ -61,7 +61,7 @@ namespace Patternify.Abstraction.Resources {
         }
         
         /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Add partial keyword.
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Add the partial modifier to the class declaration.
         /// </summary>
         internal static string P0001_CODE_FIX_TITLE {
             get {
@@ -70,7 +70,7 @@ namespace Patternify.Abstraction.Resources {
         }
         
         /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu A class marked with this attribute should be partial. Add &quot;partial&quot; keyword..
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu A class marked with this attribute should be partial. Add the partial modifier to the class declaration..
         /// </summary>
         internal static string PF0001_MESSAGE {
             get {

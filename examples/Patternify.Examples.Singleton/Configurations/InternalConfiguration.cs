@@ -2,7 +2,8 @@
 
 namespace Patternify.Examples.Singleton.Configurations;
 
-internal class InternalConfiguration
+[Singleton]
+internal partial class InternalConfiguration
 {
     public string Property { get; set; } = string.Empty;
 }
