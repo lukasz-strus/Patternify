@@ -3,22 +3,51 @@ name: CICD
 on:
   push:
     branches: [ "main" ]
+    paths-ignore:
+      - '**.md'
+      - '.github/**'
+      
+  workflow_dispatch:
+    inputs:
+      version_type:
+        required: true
+        default: 'bug'
+        type: choice
+        options:
+        - 'feature'
+        - 'bug'
+        - 'major'
+      is_prerelease:
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
 
 jobs:
   ci:
 
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    strategy:
+      fail-fast: true
 
-    steps:
-    - uses: actions/checkout@v4
+    steps:  
+    
+    - name: Checkout
+      uses: actions/checkout@v4
+      
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
+        
     - name: Restore dependencies
       run: dotnet restore
+      
     - name: Build
       run: dotnet build --no-restore --configuration Release
+      
     - name: Test
       run: dotnet test /p:Configuration=Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
