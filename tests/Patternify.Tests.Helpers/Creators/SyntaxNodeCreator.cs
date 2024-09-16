@@ -1,7 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 
-namespace Patternify.Tests.Helpers;
+namespace Patternify.Tests.Helpers.Creators;
 
 public static class SyntaxNodeCreator
 {

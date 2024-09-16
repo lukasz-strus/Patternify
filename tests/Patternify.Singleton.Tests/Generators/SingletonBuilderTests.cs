@@ -1,6 +1,6 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Patternify.Singleton.Generators;
-using Patternify.Tests.Helpers;
+using Patternify.Tests.Helpers.Creators;
 
 namespace Patternify.Singleton.Tests.Generators;
 
@@ -24,16 +24,16 @@ public sealed class SingletonBuilderTests
         await Verify(result);
     }
 
-    private const string Source = """
+    private const string Source =
+        """
         using Patternify.Singleton;
-        
+
         namespace Test;
-        
+
         [Singleton]
         public partial class TestSingleton
         {
             public string Property { get; set; } = string.Empty;
         }
         """;
-
 }

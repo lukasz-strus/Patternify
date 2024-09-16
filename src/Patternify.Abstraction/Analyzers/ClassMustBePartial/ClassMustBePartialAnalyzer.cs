@@ -23,7 +23,6 @@ internal abstract class ClassMustBePartialAnalyzer : DiagnosticAnalyzer
 
     private void AnalyzeNode(SymbolAnalysisContext context)
     {
-
         var type = (INamedTypeSymbol)context.Symbol;
 
         foreach (var declaringSyntaxReference in type.DeclaringSyntaxReferences)
@@ -41,7 +40,7 @@ internal abstract class ClassMustBePartialAnalyzer : DiagnosticAnalyzer
         }
     }
 
-    private bool ContainAttribute(IEnumerable<AttributeSyntax> attributes) => 
+    private bool ContainAttribute(IEnumerable<AttributeSyntax> attributes) =>
         attributes.Any(a => a.Name.ToString() == AttributeName.Replace(nameof(Attribute), string.Empty));
 
     private static bool IsPartial(ClassDeclarationSyntax classDeclaration) =>

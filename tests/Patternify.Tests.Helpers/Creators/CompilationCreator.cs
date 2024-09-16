@@ -1,7 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 
-namespace Patternify.Tests.Helpers;
+namespace Patternify.Tests.Helpers.Creators;
 
 public static class CompilationCreator
 {
@@ -17,7 +17,7 @@ public static class CompilationCreator
 
         var compilation = CSharpCompilation.Create(
             "SourceGeneratorTests",
-            new[] { syntaxTree },
+            [syntaxTree],
             references,
             new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Patternify.Singleton.Generators;
-using Patternify.Tests.Helpers;
+using Patternify.Tests.Helpers.Creators;
 
 namespace Patternify.Singleton.Tests.Generators;
 
@@ -20,11 +20,12 @@ public sealed class SingletonGeneratorTests
         await Verify(output);
     }
 
-    private const string InputSource = """
+    private const string InputSource =
+        """
         using Patternify.Singleton;
-        
+
         namespace TestNamespace;
-        
+
         [Singleton]
         public partial class TestClass
         {

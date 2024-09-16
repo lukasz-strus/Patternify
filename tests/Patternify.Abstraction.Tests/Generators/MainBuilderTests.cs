@@ -1,6 +1,6 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Patternify.Abstraction.Generators;
-using Patternify.Tests.Helpers;
+using Patternify.Tests.Helpers.Creators;
 
 namespace Patternify.Abstraction.Tests.Generators;
 
