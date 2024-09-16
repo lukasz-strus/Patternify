@@ -1,10 +1,11 @@
 ﻿using Patternify.Abstraction.Analyzers;
-using Verify = Patternify.Tests.Helpers.Analyzers.AnalyzerVerifier<
-    Patternify.Singleton.Analyzers.SingletonMustBePartialAnalyzer>;
+using Verify = Patternify.Tests.Helpers.Analyzers.AnalyzerAndCodeFixVerifier<
+    Patternify.Singleton.Analyzers.SingletonMustBePartialAnalyzer,
+    Patternify.Abstraction.Analyzers.ClassMustBePartial.ClassMustBePartialCodeFix>;
 
 namespace Patternify.Singleton.Tests.Analyzers;
 
-public sealed class SingletonMustBePartialAnalyzer
+public sealed class SingletonMustBePartialCodeFixVerifier
 {
     [Fact]
     public async Task Analyzer_ClassMustBePartial_ShouldThrowError()
@@ -14,18 +15,14 @@ public sealed class SingletonMustBePartialAnalyzer
             .WithLocation(6, 14)
             .WithArguments("TestClass");
 
-        await Verify.VerifyAnalyzerAsync(InputSourceWithAttributeAndWithoutPartialKeyword, typeof(SingletonAttribute),
+        await Verify.VerifyCodeFixAsync(
+            Source,
+            FixedSource,
+            typeof(SingletonAttribute),
             expected);
     }
 
-    [Fact]
-    public async Task Analyzer_ClassMustBePartial_ShouldNotThrowError()
-    {
-        await Verify.VerifyAnalyzerAsync(InputSourceWithAttributeAndWithPartialKeyword, typeof(SingletonAttribute));
-    }
-
-
-    private const string InputSourceWithAttributeAndWithPartialKeyword =
+    private const string FixedSource =
         """
         using Patternify.Singleton;
 
@@ -37,7 +34,7 @@ public sealed class SingletonMustBePartialAnalyzer
         }
         """;
 
-    private const string InputSourceWithAttributeAndWithoutPartialKeyword =
+    private const string Source =
         """
         using Patternify.Singleton;
 

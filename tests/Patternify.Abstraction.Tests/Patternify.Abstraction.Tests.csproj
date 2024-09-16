@@ -42,4 +42,8 @@
 		<AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Analyzers\" />
+	</ItemGroup>
+
 </Project>
