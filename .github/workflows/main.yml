@@ -27,7 +27,6 @@ on:
 
 jobs:
   ci:
-
     runs-on: ubuntu-latest
     timeout-minutes: 10
     strategy:
@@ -75,14 +74,6 @@ jobs:
       
     - name: Test
       run: dotnet test /p:Configuration=Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-
-    - name: update version in secrets
-      uses: hmanzur/actions-set-secret@v2.0.0
-      with:
-        name: 'APP_VERSION'
-        value: ${{ env.NEXT_VERSION }}
-        repository: "lukasz-strus/Patternify"
-        token: ${{ secrets.PAT_SEMVER_ROTATE_01_02_2025 }}
 
   cd:
     needs: [ ci ]
