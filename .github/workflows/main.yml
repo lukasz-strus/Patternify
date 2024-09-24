@@ -82,7 +82,7 @@ jobs:
         name: 'APP_VERSION'
         value: ${{ env.NEXT_VERSION }}
         repository: "lukasz-strus/Patternify"
-        token: ${{ secrets.PAT_SEMVER_ROTATE_01_02_2024 }}
+        token: ${{ secrets.PAT_SEMVER_ROTATE_01_02_2025 }}
 
   cd:
     needs: [ ci ]
