@@ -6,6 +6,16 @@
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
 		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+		<IsPackable>true</IsPackable>
+		<PackageId>Patternify.Singleton</PackageId>
+		<Authors>Łukasz Strus</Authors>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageDescription>A tool that helps you generate design pattern code in C#</PackageDescription>
+		<RepositoryUrl>https://github.com/lukasz-strus/Patternify</RepositoryUrl>
+		<PackageTags>dessing-pattern;source-generators;csharp;dotnet</PackageTags>
+		<Title>Sourse-generated extensions for dessign patterns</Title>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -20,6 +30,8 @@
 
 	<ItemGroup>
 		<None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+		<None Include="../../README.md" Pack="true" PackagePath="/" />
+		<None Include="../../icon.png" Pack="true" PackagePath="/" />
 	</ItemGroup>
 
 	<ItemGroup>
