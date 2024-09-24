@@ -14,11 +14,6 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@v4
-
-    - name: validate branch name
-      uses: ./.github/actions/validate-branch-name
-      with:
-        branch_name: ${{ github.head_ref }}
       
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
