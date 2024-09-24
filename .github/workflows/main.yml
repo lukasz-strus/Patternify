@@ -32,8 +32,15 @@ jobs:
     timeout-minutes: 10
     strategy:
       fail-fast: true
+    outputs:
+      next_version: ${{ env.NEXT_VERSION }}
 
     steps:  
+    
+    - run: echo "VERSION_TYPE=${{ github.event.inputs.version_type }}" >> $GITHUB_ENV
+    - name: override version type
+      if: ${{ github.event.inputs.version_type == '' }}
+      run: echo "VERSION_TYPE=bug" >> $GITHUB_ENV
     
     - name: Checkout
       uses: actions/checkout@v4
@@ -45,6 +52,23 @@ jobs:
         
     - name: Restore dependencies
       run: dotnet restore
+
+    - name: bump version
+      id: bump_version
+      uses: christian-draeger/increment-semantic-version@1.0.2
+      with:
+        current-version: ${{ secrets.APP_VERSION }}
+        version-fragment: ${{ env.VERSION_TYPE }}
+
+    - run: echo "NEXT_VERSION=${{ steps.bump_version.outputs.next-version }}" >> $GITHUB_ENV
+
+    - name: bump version
+      id: bump_version_rc
+      if: ${{ env.IS_PRERELEASE == 'true' }}
+      uses: christian-draeger/increment-semantic-version@1.0.2
+      with:
+        current-version: ${{ env.NEXT_VERSION }}
+        version-fragment: 'rc'
       
     - name: Build
       run: dotnet build --no-restore --configuration Release
@@ -52,10 +76,24 @@ jobs:
     - name: Test
       run: dotnet test /p:Configuration=Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 
+    - name: update version in secrets
+      uses: hmanzur/actions-set-secret@v2.0.0
+      with:
+        name: 'APP_VERSION'
+        value: ${{ env.NEXT_VERSION }}
+        repository: "lukasz-strus/Patternify"
+        token: ${{ secrets.PAT_SEMVER_ROTATE_01_02_2024 }}
+
   cd:
     needs: [ ci ]
     runs-on: ubuntu-latest
     steps:
+      - run: echo "NEXT_VERSION=${{ needs.ci.outputs.next_version }}" >> $GITHUB_ENV
+      - run: echo "IS_PRERELEASE=${{ github.event.inputs.is_prerelease }}" >> $GITHUB_ENV
+      - name: override is prerelease
+        if: ${{ github.event.inputs.is_prerelease == '' }}
+        run: echo "IS_PRERELEASE=false" >> $GITHUB_ENV
+    
       - name: Checkout
         uses: actions/checkout@v4
       
@@ -68,23 +106,41 @@ jobs:
         run: dotnet restore
 
       - name: dotnet pack
+        shell: bash
+        run: |
+          dotnet pack /p:Version=${{ env.NEXT_VERSION }} --configuration=Release \
+          /p:NoWarn=NU5105 \
+          /p:RepositoryUrl=https://github.com/lukasz-strus/Patternify \
+          /p:RepositoryType=git
+
+      - name: dotnet pack
         run: |
           dotnet pack --configuration Release \
           /p:NoWarn=NU5105 \
           /p:RepositoryUrl=https://github.com/YourRepo/YourProject \
           /p:RepositoryType=git
 
-      - name: Publish artifacts to GitHub Packages
-        run: |
-          dotnet nuget push "**/*.nupkg" --api-key ${{ secrets.GITHUB_TOKEN }} --source https://nuget.pkg.github.com/YourUsername/index.json --skip-duplicate
-
-      - name: Publish artifacts to NuGet.org
-        run: dotnet nuget push "**/*.nupkg" --api-key ${{ secrets.NUGET_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
-
-      - name: Create a GitHub release
-        uses: marvinpinto/action-automatic-releases@latest
+      - name: publish artifacts
+        uses: actions/upload-artifact@v3.1.2
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          path: packages
+          name: nuget-packages
+
+      - name: create a github release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: ${{ env.NEXT_VERSION }}
           title: "Release version: ${{ env.NEXT_VERSION }}"
-          prerelease: ${{ github.event.inputs.is_prerelease == 'true' }}
+          prerelease: ${{ env.IS_PRERELEASE == 'true' }}
+      
+
+      - name: dotnet push to github packages
+        shell: bash
+        run: |
+          dotnet tool restore
+          find . -name "*.nupkg" | xargs -n1 dotnet nuget push --api-key=${{ secrets.GITHUB_TOKEN }} --source https://nuget.pkg.github.com/lukasz-strus/index.json --skip-duplicate
+
+      - name: dotnet push to nuget.org
+        shell: bash
+        run: dotnet nuget push "**/*.nupkg" --api-key ${{ secrets.NUGET_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
