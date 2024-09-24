@@ -14,7 +14,7 @@
 		<PackageDescription>
 			This package provides a Roslyn source generator that automatically generates the Singleton design pattern for C# classes.
 			It simplifies the implementation of Singleton by ensuring that a class has only one instance and provides a global point of access to it.
-			The generator creates thread-safe Singleton implementations and supports lazy initialization.
+			The generator creates thread-safe Singleton implementations.
 		</PackageDescription>
 		<RepositoryUrl>https://github.com/lukasz-strus/Patternify</RepositoryUrl>
 		<PackageTags>
@@ -29,7 +29,7 @@
 			LazyInitialization;
 			DependencyInjection;
 		</PackageTags>
-		<Title>Singleton Design Pattern Source Generator (C# / Roslyn)</Title>
+		<Title>Patternify - Singleton Design Pattern Source Generator (C# / Roslyn)</Title>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
