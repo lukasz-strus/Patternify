@@ -80,7 +80,7 @@ jobs:
       with:
         name: 'APP_VERSION'
         value: ${{ env.NEXT_VERSION }}
-        token: ${{ secrets.PAT_SEMVER_ROTATE_01_02_2025 }}
+        token: ${{ secrets.PAT_SEMVER_ROTATE_24_09_2025 }}
 
   cd:
     needs: [ ci ]
@@ -139,6 +139,6 @@ jobs:
           dotnet tool restore
           find . -name "*.nupkg" | xargs -n1 dotnet nuget push --api-key=${{ secrets.GITHUB_TOKEN }} --source https://nuget.pkg.github.com/lukasz-strus/index.json --skip-duplicate
 
-      #- name: dotnet push to nuget.org
-      #  shell: bash
-      #  run: dotnet nuget push "**/*.nupkg" --api-key ${{ secrets.NUGET_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+      - name: dotnet push to nuget.org
+        shell: bash
+        run: dotnet nuget push "**/*.nupkg" --api-key ${{ secrets.NUGET_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
