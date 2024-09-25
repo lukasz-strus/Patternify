@@ -15,7 +15,5 @@ internal static class PropertyGeneratorHelper
             .Distinct();
 
     private static string WritePropertySource(PropertyDeclarationSyntax property) =>
-        $$"""
-           public {{property.Type}} {{property.Identifier.Text}} { {{property.AccessorList?.Accessors}} }
-          """;
+        $$"""public {{property.Type}} {{property.Identifier.Text}} { {{property.AccessorList?.Accessors}} }""";
 }
