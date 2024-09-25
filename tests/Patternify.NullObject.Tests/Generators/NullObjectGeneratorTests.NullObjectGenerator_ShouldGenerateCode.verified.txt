@@ -11,7 +11,7 @@ using System.Text.Json;
 
 namespace Test;
 
-public class LogNullObject : 
+public class LogNullObject : ILog
 {
     public int Id { get; }
 	public string Name { get; }

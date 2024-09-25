@@ -18,6 +18,7 @@ internal class NullObjectGenerator : MainGenerator<NullObjectSyntaxReceiver>
         Builder.SetNamespace(interfaceDeclaration);
         Builder.SetAccessModifier(interfaceDeclaration);
         Builder.SetClassName(interfaceDeclaration);
+        Builder.SetInterfaceName(interfaceDeclaration);
         Builder.SetProperties(interfaceDeclaration);
         Builder.SetMethods(interfaceDeclaration);
 

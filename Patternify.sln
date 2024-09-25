@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Patternify.NullObject", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Patternify.NullObject.Tests", "tests\Patternify.NullObject.Tests\Patternify.NullObject.Tests.csproj", "{47991FD1-0140-47EC-9194-27E0FD854882}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Patternify.Examples.NullObject", "examples\Patternify.Examples.NullObject\Patternify.Examples.NullObject.csproj", "{6EFB467B-5C42-49C4-B403-9B86E9C7CD5E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{47991FD1-0140-47EC-9194-27E0FD854882}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47991FD1-0140-47EC-9194-27E0FD854882}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47991FD1-0140-47EC-9194-27E0FD854882}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EFB467B-5C42-49C4-B403-9B86E9C7CD5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EFB467B-5C42-49C4-B403-9B86E9C7CD5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EFB467B-5C42-49C4-B403-9B86E9C7CD5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EFB467B-5C42-49C4-B403-9B86E9C7CD5E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +82,7 @@ Global
 		{80681E27-2329-43F3-BB51-B9E0ACB284AE} = {F5334383-D2D3-4836-8E69-5A5C3ABB4B89}
 		{F9734EC6-AD7C-4727-BA6A-0DBF791376F2} = {0C52C505-41D2-433A-9A53-F693FF3C1596}
 		{47991FD1-0140-47EC-9194-27E0FD854882} = {F5334383-D2D3-4836-8E69-5A5C3ABB4B89}
+		{6EFB467B-5C42-49C4-B403-9B86E9C7CD5E} = {491381AD-CF5A-4EBB-997B-09A66A586DF3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B9321E16-075D-4DC4-8570-9DC648EED48B}
