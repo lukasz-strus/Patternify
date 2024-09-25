@@ -1,10 +1,11 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.Text;
 
 namespace Patternify.Abstraction.Generators;
 
 internal abstract class MainBuilder
 {
-    private readonly List<string> _standardUsings =
+    private static readonly List<string> StandardUsings =
     [
         "using System;",
         "using System.Collections.Generic;",
@@ -17,52 +18,78 @@ internal abstract class MainBuilder
         "using System.Text.Json;"
     ];
 
-    protected string Usings = string.Empty;
-    protected string Namespace = string.Empty;
-    protected string AccessModifier = string.Empty;
-    protected string ClassName = string.Empty;
+    protected StringBuilder Usings { get; set; } = new();
+    protected StringBuilder Namespace { get; set; } = new();
+    protected StringBuilder AccessModifier { get; set; } = new();
+    protected StringBuilder ClassName { get; set; } = new();
+    protected StringBuilder InterfaceName { get; set; } = new();
 
-
-    internal void SetUsings(ClassDeclarationSyntax @class)
+    internal void SetUsings(TypeDeclarationSyntax @class)
     {
         var usings = @class
             .FirstAncestorOrSelf<CompilationUnitSyntax>()?
             .DescendantNodesAndSelf()
             .OfType<UsingDirectiveSyntax>()
-            .Select(x => $"using {x.Name?.ToString()};")
+            .Select(x => $"using {x.Name};")
             .Distinct()
             .ToList() ?? [];
 
-        var usingsMap = new HashSet<string>(usings);
-        foreach (var systemUsing in _standardUsings.Where(systemUsing => !usingsMap.Contains(systemUsing)))
+        var usingsSet = new HashSet<string>(usings);
+        foreach (var systemUsing in StandardUsings.Where(systemUsing => !usingsSet.Contains(systemUsing)))
         {
-            usingsMap.Add(systemUsing);
+            usingsSet.Add(systemUsing);
         }
 
-        Usings = string.Join("\n", usingsMap);
+        Usings.Clear();
+        Usings.Append(string.Join("\n", usingsSet));
     }
 
-    internal void SetNamespace(ClassDeclarationSyntax @class)
+    internal void SetNamespace(TypeDeclarationSyntax @class)
     {
         var @namespace = @class.FirstAncestorOrSelf<NamespaceDeclarationSyntax>()?.Name.ToString()
                          ?? @class.FirstAncestorOrSelf<FileScopedNamespaceDeclarationSyntax>()?.Name.ToString();
 
-        Namespace = @namespace is null
-            ? string.Empty
-            : $"namespace {@namespace};";
+        Namespace.Clear();
+        if (@namespace is null) return;
+        Namespace.Append($"""namespace {@namespace};""");
     }
 
-    internal void SetAccessModifier(ClassDeclarationSyntax @class) =>
-        AccessModifier = @class.Modifiers.First().Text;
+    internal void SetAccessModifier(TypeDeclarationSyntax @class)
+    {
+        AccessModifier.Clear();
+        AccessModifier.Append(@class.Modifiers.First().Text);
+    }
 
-    internal void SetClassName(ClassDeclarationSyntax @class) =>
-        ClassName += @class.Identifier.Text;
-    internal void Clear() => Usings = Namespace = AccessModifier = ClassName = string.Empty;
+    internal void SetClassName(ClassDeclarationSyntax @class)
+    {
+        ClassName.Clear();
+        ClassName.Append(@class.Identifier.Text);
+    }
+
+    internal virtual void SetClassName(InterfaceDeclarationSyntax @interface)
+    {
+        ClassName.Clear();
+        ClassName.Append(@interface.Identifier.Text.Replace("I", string.Empty));
+    }
+
+    internal void SetInterfaceName(InterfaceDeclarationSyntax @interface)
+    {
+        InterfaceName.Clear();
+        InterfaceName.Append(@interface.Identifier.Text);
+    }
+
+    internal virtual void Clear()
+    {
+        Usings.Clear();
+        Namespace.Clear();
+        AccessModifier.Clear();
+        ClassName.Clear();
+        InterfaceName.Clear();
+    }
 
     internal string Build() => IsEmpty() ? string.Empty : BuildSource();
 
-    private bool IsEmpty() => string.IsNullOrWhiteSpace(Usings) && string.IsNullOrWhiteSpace(Namespace) &&
-                              string.IsNullOrWhiteSpace(AccessModifier) && string.IsNullOrWhiteSpace(ClassName);
+    protected abstract bool IsEmpty();
 
     protected abstract string BuildSource();
 }

@@ -2,7 +2,7 @@
 
 namespace Patternify.Singleton.Generators;
 
-internal class SingletonSyntaxReceiver : MainSyntaxReceiver
+internal sealed class SingletonSyntaxReceiver : MainSyntaxReceiver
 {
     protected override string AttributeName => nameof(SingletonAttribute);
 }
