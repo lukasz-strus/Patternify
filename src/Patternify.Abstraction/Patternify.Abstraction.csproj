@@ -35,6 +35,8 @@
 		<InternalsVisibleTo Include="Patternify.Abstraction.Tests" />
 		<InternalsVisibleTo Include="Patternify.Singleton" />
 		<InternalsVisibleTo Include="Patternify.Singleton.Tests" />
+		<InternalsVisibleTo Include="Patternify.NullObject" />
+		<InternalsVisibleTo Include="Patternify.NullObject.Tests" />
 	</ItemGroup>
 
 	<ItemGroup>

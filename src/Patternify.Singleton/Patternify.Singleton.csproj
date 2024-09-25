@@ -11,10 +11,25 @@
 		<Authors>Łukasz Strus</Authors>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageIcon>icon.png</PackageIcon>
-		<PackageDescription>A tool that helps you generate design pattern code in C#</PackageDescription>
+		<PackageDescription>
+			This package provides a Roslyn source generator that automatically generates the Singleton design pattern for C# classes.
+			It simplifies the implementation of Singleton by ensuring that a class has only one instance and provides a global point of access to it.
+			The generator creates thread-safe Singleton implementations.
+		</PackageDescription>
 		<RepositoryUrl>https://github.com/lukasz-strus/Patternify</RepositoryUrl>
-		<PackageTags>dessing-pattern;source-generators;csharp;dotnet</PackageTags>
-		<Title>Sourse-generated extensions for dessign patterns</Title>
+		<PackageTags>
+			Roslyn;
+			SourceGenerator;
+			Singleton;
+			DesignPatterns;
+			CSharp;
+			ThreadSafe;
+			CodeGeneration;
+			AOT;
+			LazyInitialization;
+			DependencyInjection;
+		</PackageTags>
+		<Title>Patternify - Singleton Design Pattern Source Generator (C# / Roslyn)</Title>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
@@ -30,7 +45,6 @@
 
 	<ItemGroup>
 		<None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
-		<None Include="../../README.md" Pack="true" PackagePath="/" />
 		<None Include="../../icon.png" Pack="true" PackagePath="/" />
 	</ItemGroup>
 

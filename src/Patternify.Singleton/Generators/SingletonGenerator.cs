@@ -28,6 +28,6 @@ internal class SingletonGenerator : MainGenerator<SingletonSyntaxReceiver>
         return source;
     }
 
-    protected override string GetNestHintName(AttributeSyntax attribute)
-        => attribute.GetFirstParent<ClassDeclarationSyntax>().Identifier.Text + ".g.cs";
+    protected override string GetNestHintName(AttributeSyntax attribute) =>
+        attribute.GetFirstParent<ClassDeclarationSyntax>().Identifier.Text + ".g.cs";
 }
