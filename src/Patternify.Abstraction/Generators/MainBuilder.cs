@@ -69,7 +69,18 @@ internal abstract class MainBuilder
     internal virtual void SetClassName(InterfaceDeclarationSyntax @interface)
     {
         ClassName.Clear();
-        ClassName.Append(@interface.Identifier.Text.Replace("I", string.Empty));
+
+        var interfaceName = @interface.Identifier.Text;
+        if (interfaceName.StartsWith("I") &&
+            interfaceName.Length > 1 &&
+            char.IsUpper(interfaceName[1]))
+        {
+            ClassName.Append(interfaceName.Substring(1));
+        }
+        else
+        {
+            ClassName.Append(interfaceName);
+        }
     }
 
     internal void SetInterfaceName(InterfaceDeclarationSyntax @interface)

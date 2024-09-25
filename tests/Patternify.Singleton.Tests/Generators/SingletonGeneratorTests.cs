@@ -13,9 +13,11 @@ public sealed class SingletonGeneratorTests
         // Arrange
         var inputCompilation = CompilationCreator.CreateCompilation(InputSource);
         GeneratorDriver driver = CSharpGeneratorDriver.Create(new SingletonGenerator());
+
         // Act
         driver.RunGeneratorsAndUpdateCompilation(inputCompilation, out var outputCompilation, out _);
         var output = outputCompilation.SyntaxTrees.Last().ToString();
+
         // Assert
         await Verify(output);
     }
