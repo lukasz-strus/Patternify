@@ -10,9 +10,12 @@ internal abstract class MainSyntaxReceiver : ISyntaxReceiver
 
     public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
     {
-        if (syntaxNode is not AttributeSyntax { Name: IdentifierNameSyntax { Identifier.Text: var attributeName } } attribute
+        if (syntaxNode is not AttributeSyntax
+            {
+                Name: IdentifierNameSyntax { Identifier.Text: var attributeName }
+            } attribute
             || attributeName != AttributeName.Replace(nameof(Attribute), string.Empty)) return;
-        
+
         Attributes.Add(attribute);
     }
 }
